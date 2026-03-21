@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Apply — Founder Mode: ON</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF6600;
+      --orange-light: #FF8533;
+      --orange-dim: rgba(255,102,0,0.08);
+      --black: #0f0f0f;
+      --dark: #1a1a1a;
+      --mid: #555;
+      --light: #999;
+      --border: #e8e8e8;
+      --bg: #ffffff;
+      --card: #fafafa;
+      --error: #e53e3e;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.3px;
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    .nav-back {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--mid);
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.15s;
+    }
+    .nav-back:hover { color: var(--orange); }
+
+    /* LAYOUT */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 100vh;
+    }
+
+    /* LEFT PANEL */
+    .left-panel {
+      background: var(--black);
+      padding: 120px 60px 60px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+    }
+
+    .left-panel-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,102,0,0.15);
+      border: 1px solid rgba(255,102,0,0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      margin-bottom: 28px;
+      width: fit-content;
+    }
+
+    .left-panel h1 {
+      font-size: clamp(36px, 4vw, 54px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1.5px;
+      line-height: 1.05;
+      margin-bottom: 20px;
+    }
+
+    .left-panel h1 span { color: var(--orange); }
+
+    .left-panel .tagline {
+      font-size: 16px;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.65;
+      margin-bottom: 48px;
+    }
+
+    .left-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .left-checklist li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.5;
+    }
+
+    .check-icon {
+      width: 20px;
+      height: 20px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .check-icon svg {
+      width: 10px;
+      height: 10px;
+      stroke: #fff;
+      stroke-width: 2.5;
+    }
+
+    .left-panel-footer {
+      margin-top: auto;
+      padding-top: 48px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+    }
+
+    /* RIGHT PANEL — FORM */
+    .right-panel {
+      padding: 100px 60px 60px;
+      overflow-y: auto;
+    }
+
+    .form-header {
+      margin-bottom: 40px;
+    }
+
+    .form-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.5px;
+      margin-bottom: 8px;
+    }
+
+    .form-header p {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    label {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    label .required {
+      color: var(--orange);
+      margin-left: 2px;
+    }
+
+    label .optional {
+      color: var(--light);
+      font-weight: 400;
+      font-size: 12px;
+      margin-left: 4px;
+    }
+
+    input, select, textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      color: var(--dark);
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 12px 14px;
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      width: 100%;
+    }
+
+    input::placeholder, textarea::placeholder { color: var(--light); }
+
+    input:focus, select:focus, textarea:focus {
+      border-color: var(--orange);
+      box-shadow: 0 0 0 3px rgba(255,102,0,0.1);
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+      line-height: 1.6;
+    }
+
+    select { cursor: pointer; }
+
+    /* Radio group */
+    .radio-group {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .radio-option {
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .radio-option input[type="radio"] {
+      display: none;
+    }
+
+    .radio-option label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 11px 16px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--mid);
+      transition: all 0.15s;
+      text-align: center;
+    }
+
+    .radio-option input[type="radio"]:checked + label {
+      background: var(--orange-dim);
+      border-color: var(--orange);
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    .radio-option label:hover {
+      border-color: rgba(255,102,0,0.4);
+      color: var(--orange);
+    }
+
+    /* Divider */
+    .form-divider {
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .form-section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    /* Submit */
+    .submit-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .submit-note {
+      font-size: 12px;
+      color: var(--light);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    button[type="submit"] {
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.15s;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+    }
+
+    button[type="submit"]:hover {
+      background: var(--orange-light);
+      transform: translateY(-1px);
+    }
+
+    /* Success state */
+    .success-message {
+      display: none;
+      text-align: center;
+      padding: 60px 40px;
+    }
+
+    .success-message.visible { display: block; }
+
+    .success-icon {
+      width: 64px;
+      height: 64px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 24px;
+    }
+
+    .success-icon svg { stroke: #fff; width: 28px; height: 28px; }
+
+    .success-message h3 {
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    .success-message p {
+      font-size: 16px;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 1fr; }
+
+      .left-panel {
+        position: relative;
+        height: auto;
+        padding: 100px 24px 48px;
+      }
+
+      .left-panel-footer { display: none; }
+
+      .right-panel { padding: 40px 24px 60px; }
+
+      .form-row { grid-template-columns: 1fr; }
+
+      nav { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="/index.html" class="nav-logo">Founder Mode<span>: ON</span></a>
+    <a href="/index.html" class="nav-back">← Back to event</a>
+  </nav>
+
+  <div class="page">
+
+    <!-- LEFT PANEL -->
+    <div class="left-panel">
+      <div class="left-panel-badge">Application</div>
+      <h1>Apply for<br/><span>Founder Mode: ON</span></h1>
+      <p class="tagline">We're looking for curious, ambitious people who wonder if there's more to life than a corporate track — and are willing to build it.</p>
+
+      <ul class="left-checklist">
+        <li>
+          <div class="check-icon">
+            <svg fill="none" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          Meet Turkish YC-backed founders under 25 face to face
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg fill="none" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          Ask real questions — no panels, no filler
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg fill="none" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          Walk away knowing what's actually possible
+        </li>
+        <li>
+          <div class="check-icon">
+            <svg fill="none" viewBox="0 0 12 12"><polyline points="2,6 5,9 10,3"/></svg>
+          </div>
+          Join a curated community of builders, not just attendees
+        </li>
+      </ul>
+
+      <div class="left-panel-footer">
+        Istanbul · An ExposureAI × fal.ai × e2vc Event
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+      <div class="form-header">
+        <h2>Your application</h2>
+        <p>Takes about 5 minutes. Be honest — we value genuine answers over polished ones.</p>
+      </div>
+
+      <form id="applyForm" novalidate>
+
+        <div class="form-section-title">About you</div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name <span class="required">*</span></label>
+            <input type="text" id="firstName" name="firstName" placeholder="Ada" required />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name <span class="required">*</span></label>
+            <input type="text" id="lastName" name="lastName" placeholder="Lovelace" required />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="ada@metu.edu.tr" required />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="university">University <span class="required">*</span></label>
+            <input type="text" id="university" name="university" placeholder="METU, Boğaziçi, Bilkent..." required />
+          </div>
+          <div class="form-group">
+            <label for="year">Year of Study <span class="required">*</span></label>
+            <select id="year" name="year" required>
+              <option value="" disabled selected>Select year</option>
+              <option value="1">1st year</option>
+              <option value="2">2nd year</option>
+              <option value="3">3rd year</option>
+              <option value="4">4th year</option>
+              <option value="5">5th year / Masters</option>
+              <option value="phd">PhD</option>
+              <option value="grad">Recently graduated</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="linkedin">LinkedIn or GitHub <span class="optional">(optional)</span></label>
+          <input type="url" id="linkedin" name="linkedin" placeholder="linkedin.com/in/yourprofile" />
+        </div>
+
+        <hr class="form-divider" />
+        <div class="form-section-title">Your mindset</div>
+
+        <div class="form-group">
+          <label for="building">What are you currently building, learning, or obsessing over? <span class="required">*</span></label>
+          <textarea id="building" name="building" placeholder="A project, an idea, a rabbit hole you can't get out of — anything counts." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="why">Why do you want to attend Founder Mode: ON? <span class="required">*</span></label>
+          <textarea id="why" name="why" placeholder="What are you hoping to walk away with? Be specific." required></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Have you ever started or seriously worked on a startup / side project?</label>
+          <div class="radio-group">
+            <div class="radio-option">
+              <input type="radio" id="startup_yes" name="startup" value="yes" />
+              <label for="startup_yes">Yes, I have</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="startup_exploring" name="startup" value="exploring" />
+              <label for="startup_exploring">Exploring an idea</label>
+            </div>
+            <div class="radio-option">
+              <input type="radio" id="startup_no" name="startup" value="no" />
+              <label for="startup_no">Not yet</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="startup_desc">If yes — what are you working on? <span class="optional">(optional)</span></label>
+          <textarea id="startup_desc" name="startup_desc" style="min-height:80px;" placeholder="Tell us a little about it. One sentence or ten — up to you."></textarea>
+        </div>
+
+        <hr class="form-divider" />
+        <div class="form-section-title">Last question</div>
+
+        <div class="form-group">
+          <label for="heard">How did you hear about Founder Mode: ON? <span class="required">*</span></label>
+          <select id="heard" name="heard" required>
+            <option value="" disabled selected>Select one</option>
+            <option value="friend">A friend or classmate</option>
+            <option value="linkedin">LinkedIn</option>
+            <option value="instagram">Instagram</option>
+            <option value="twitter">X / Twitter</option>
+            <option value="professor">A professor or advisor</option>
+            <option value="club">A university club</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
+
+        <div class="submit-row">
+          <p class="submit-note">By applying you confirm you're a student or recent graduate based in Turkey. We'll be in touch via email.</p>
+          <button type="submit">Submit Application →</button>
+        </div>
+
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="success-message" id="successMsg">
+        <div class="success-icon">
+          <svg fill="none" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h3>Application received!</h3>
+        <p>Thanks for applying to Founder Mode: ON.<br/>We'll review your application and reach out via email soon.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('applyForm');
+    const successMsg = document.getElementById('successMsg');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      // Basic validation
+      const required = form.querySelectorAll('[required]');
+      let valid = true;
+      required.forEach(field => {
+        if (!field.value.trim()) {
+          valid = false;
+          field.style.borderColor = 'var(--error)';
+          field.addEventListener('input', () => field.style.borderColor = '', { once: true });
+        }
+      });
+
+      if (!valid) {
+        const firstInvalid = form.querySelector('[required]:placeholder-shown, select[required] option[value=""]:checked');
+        return;
+      }
+
+      // Collect form data
+      const data = new FormData(form);
+      const payload = Object.fromEntries(data.entries());
+      console.log('Application submitted:', payload);
+
+      // Show success
+      form.style.display = 'none';
+      successMsg.classList.add('visible');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+
+</body>
+</html>

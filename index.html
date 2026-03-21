@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Founder Mode: ON — Istanbul</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --orange: #FF6600;
+      --orange-light: #FF8533;
+      --orange-dim: rgba(255,102,0,0.08);
+      --black: #0f0f0f;
+      --dark: #1a1a1a;
+      --mid: #555;
+      --light: #999;
+      --border: #e8e8e8;
+      --bg: #ffffff;
+      --card: #fafafa;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--dark);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      height: 64px;
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 15px;
+      font-weight: 800;
+      color: var(--black);
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--orange); }
+
+    .nav-apply {
+      background: var(--orange);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 20px;
+      border-radius: 6px;
+      transition: background 0.15s;
+    }
+    .nav-apply:hover { background: var(--orange-light); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-yc-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange-dim);
+      border: 1px solid rgba(255,102,0,0.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--orange);
+      letter-spacing: 0.4px;
+      text-transform: uppercase;
+      margin-bottom: 32px;
+    }
+
+    .hero-yc-badge img {
+      height: 16px;
+      width: auto;
+    }
+
+    .hero h1 {
+      font-size: clamp(52px, 9vw, 96px);
+      font-weight: 900;
+      line-height: 1.0;
+      letter-spacing: -2px;
+      color: var(--black);
+      max-width: 900px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: var(--mid);
+      max-width: 560px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+
+    .hero-meta {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .hero-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: var(--mid);
+      font-weight: 500;
+    }
+
+    .hero-meta-item svg {
+      color: var(--orange);
+      flex-shrink: 0;
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #fff;
+      text-decoration: none;
+      font-size: 16px;
+      font-weight: 700;
+      padding: 16px 36px;
+      border-radius: 8px;
+      transition: background 0.15s, transform 0.15s;
+      letter-spacing: -0.2px;
+    }
+    .hero-cta:hover { background: var(--orange-light); transform: translateY(-1px); }
+
+    .hero-sub {
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--light);
+    }
+
+    /* ABOUT */
+    .section {
+      padding: 100px 24px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--orange);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      color: var(--black);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .about-text p {
+      font-size: 17px;
+      line-height: 1.75;
+      color: var(--mid);
+      margin-bottom: 16px;
+    }
+
+    .about-text p:last-child { margin-bottom: 0; }
+
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+
+    .stat-number {
+      font-size: 40px;
+      font-weight: 900;
+      color: var(--orange);
+      letter-spacing: -1.5px;
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: var(--mid);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+
+    /* DIVIDER */
+    .divider {
+      max-width: 1100px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--border);
+    }
+
+    /* SPEAKERS */
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    .speaker-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .speaker-card:hover {
+      border-color: rgba(255,102,0,0.3);
+      box-shadow: 0 4px 24px rgba(255,102,0,0.08);
+    }
+
+    .speaker-avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--orange-dim), rgba(255,102,0,0.15));
+      border: 2px solid rgba(255,102,0,0.2);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--orange);
+    }
+
+    .speaker-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--black);
+      letter-spacing: -0.3px;
+      margin-bottom: 4px;
+    }
+
+    .speaker-role {
+      font-size: 13px;
+      color: var(--mid);
+      margin-bottom: 12px;
+      font-weight: 500;
+    }
+
+    .speaker-company-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 4px 12px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--dark);
+    }
+
+    .speaker-company-badge img {
+      height: 14px;
+      width: auto;
+    }
+
+    .yc-tag {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 4px;
+      letter-spacing: 0.3px;
+      margin-left: 4px;
+      vertical-align: middle;
+    }
+
+    /* LOGO placeholder */
+    .company-placeholder {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 14px;
+      height: 14px;
+      background: var(--orange);
+      border-radius: 3px;
+      font-size: 8px;
+      color: #fff;
+      font-weight: 800;
+    }
+
+    /* ORGANIZERS */
+    .organizers-section {
+      padding: 80px 24px;
+      background: var(--black);
+    }
+
+    .organizers-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .organizers-inner .section-label {
+      color: rgba(255,102,0,0.8);
+    }
+
+    .organizers-inner .section-title {
+      color: #fff;
+      margin-bottom: 12px;
+    }
+
+    .organizers-subtitle {
+      font-size: 16px;
+      color: rgba(255,255,255,0.45);
+      margin-bottom: 56px;
+    }
+
+    .logo-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 56px;
+      flex-wrap: wrap;
+    }
+
+    .logo-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-item img {
+      height: 36px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+
+    .logo-item img:hover { opacity: 1; }
+
+    .logo-item-label {
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .logo-divider-line {
+      width: 1px;
+      height: 40px;
+      background: rgba(255,255,255,0.1);
+    }
+
+    /* YC section */
+    .yc-section {
+      padding: 80px 24px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    .yc-section-inner {
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .yc-logo-large {
+      height: 56px;
+      width: auto;
+      margin-bottom: 24px;
+    }
+
+    .yc-section h3 {
+      font-size: 26px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      margin-bottom: 14px;
+    }
+
+    .yc-section p {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--mid);
+    }
+
+    /* CTA BANNER */
+    .cta-banner {
+      background: var(--orange);
+      padding: 80px 24px;
+      text-align: center;
+    }
+
+    .cta-banner h2 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -1px;
+      margin-bottom: 12px;
+    }
+
+    .cta-banner p {
+      font-size: 17px;
+      color: rgba(255,255,255,0.75);
+      margin-bottom: 36px;
+    }
+
+    .cta-banner-btn {
+      display: inline-block;
+      background: #fff;
+      color: var(--orange);
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 16px 40px;
+      border-radius: 8px;
+      transition: transform 0.15s, box-shadow 0.15s;
+      letter-spacing: -0.3px;
+    }
+
+    .cta-banner-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 48px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--black);
+    }
+    .footer-logo span { color: var(--orange); }
+
+    footer p {
+      font-size: 13px;
+      color: var(--light);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+
+      .about-stats { grid-template-columns: 1fr 1fr; }
+
+      .speakers-grid { grid-template-columns: 1fr; }
+
+      footer { flex-direction: column; text-align: center; }
+
+      .logo-row { gap: 32px; }
+
+      .logo-divider-line { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-logo">Founder Mode<span>: ON</span></div>
+    <a href="/apply.html" class="nav-apply">Apply Now →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-yc-badge">
+      <img src="logos/yc copy.png" alt="Y Combinator" />
+      Backed by YC founders
+    </div>
+    <h1>Founder Mode<span>: ON</span></h1>
+    <p>An exclusive gathering for Turkey's sharpest young minds — to meet the founders who chose to build instead of conform.</p>
+
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        TBD — Date Announced Soon
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        Istanbul, Turkey
+      </div>
+      <div class="hero-meta-item">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+        </svg>
+        Limited Seats · Application Only
+      </div>
+    </div>
+
+    <a href="/apply.html" class="hero-cta">Apply for a Seat →</a>
+    <p class="hero-sub">Applications reviewed on a rolling basis</p>
+  </section>
+
+  <!-- ABOUT -->
+  <hr class="divider" />
+  <section class="section">
+    <div class="section-label">What is this</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <h2 class="section-title">There's another path.<br/>This is it.</h2>
+        <p>Every year, Turkey's top university graduates flood into consulting, investment banking, and big tech. The path is comfortable, predictable — and often unfulfilling.</p>
+        <p>Founder Mode: ON exists to show that there's a different way. We're bringing YC-backed Turkish founders under 25 face to face with the sharpest students in the country — so they can see what's possible when you choose to build.</p>
+        <p>Attendance is earned, not given. Members are selected based on mindset, ambition, and the hunger to create something of their own.</p>
+      </div>
+      <div class="about-stats">
+        <div class="stat-card">
+          <div class="stat-number">25↓</div>
+          <div class="stat-label">All speakers are under 25 years old</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">YC</div>
+          <div class="stat-label">Backed by Y Combinator — the world's top startup accelerator</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">TR</div>
+          <div class="stat-label">Turkish founders building globally competitive companies</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number">1×</div>
+          <div class="stat-label">Exclusive, curated cohort. Not a conference</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAKERS -->
+  <hr class="divider" />
+  <section class="section">
+    <div class="section-label">Who you'll hear from</div>
+    <h2 class="section-title">Speakers & Guests</h2>
+
+    <div class="speakers-grid">
+
+      <!-- Oncel Ozgül -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">OÖ</div>
+        <div class="speaker-name">Öncel Özgül</div>
+        <div class="speaker-role">CEO</div>
+        <div class="speaker-company-badge">
+          <div class="company-placeholder">P</div>
+          Patientdesk
+          <span class="yc-tag">YC W26</span>
+        </div>
+      </div>
+
+      <!-- Emre Kaplanaer -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">EK</div>
+        <div class="speaker-name">Emre Kaplanaer</div>
+        <div class="speaker-role">CTO</div>
+        <div class="speaker-company-badge">
+          <div class="company-placeholder">P</div>
+          Patientdesk
+          <span class="yc-tag">YC W26</span>
+        </div>
+      </div>
+
+      <!-- Kayra Bahadır -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">KB</div>
+        <div class="speaker-name">Kayra Bahadır</div>
+        <div class="speaker-role">CEO</div>
+        <div class="speaker-company-badge">
+          <div class="company-placeholder">C</div>
+          Caretta
+          <span class="yc-tag">YC W26</span>
+        </div>
+      </div>
+
+      <!-- Tunga Bayrak -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">TB</div>
+        <div class="speaker-name">Tunga Bayrak</div>
+        <div class="speaker-role">Co-Founder</div>
+        <div class="speaker-company-badge">
+          <div class="company-placeholder">F</div>
+          Freya
+          <span class="yc-tag">YC S25</span>
+        </div>
+      </div>
+
+      <!-- Enis Hulli -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">EH</div>
+        <div class="speaker-name">Enis Hulli</div>
+        <div class="speaker-role">General Partner</div>
+        <div class="speaker-company-badge">
+          <img src="logos/e2vc copy.svg" alt="e2vc" />
+          e2vc
+        </div>
+      </div>
+
+      <!-- Özge Öz -->
+      <div class="speaker-card">
+        <div class="speaker-avatar">ÖÖ</div>
+        <div class="speaker-name">Özge Öz</div>
+        <div class="speaker-role">Investor · Early backer of Hockeystack <span class="yc-tag">YC S23</span></div>
+        <div class="speaker-company-badge">
+          <div class="company-placeholder">Q</div>
+          QNBEYOND
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ORGANIZERS -->
+  <section class="organizers-section">
+    <div class="organizers-inner">
+      <div class="section-label">Organized by</div>
+      <h2 class="section-title">The People Behind It</h2>
+      <p class="organizers-subtitle">Brought to you by Turkey's leading voices in tech, venture, and AI.</p>
+      <div class="logo-row">
+        <div class="logo-item">
+          <img src="logos/exposure-new copy.svg" alt="ExposureAI" />
+          <span class="logo-item-label">ExposureAI</span>
+        </div>
+        <div class="logo-divider-line"></div>
+        <div class="logo-item">
+          <img src="logos/fal copy.png" alt="fal.ai" />
+          <span class="logo-item-label">fal.ai</span>
+        </div>
+        <div class="logo-divider-line"></div>
+        <div class="logo-item">
+          <img src="logos/e2vc copy.svg" alt="e2vc" />
+          <span class="logo-item-label">e2vc</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- YC SECTION -->
+  <section class="yc-section">
+    <div class="yc-section-inner">
+      <img src="logos/yc copy.png" alt="Y Combinator" class="yc-logo-large" />
+      <h3>Powered by the YC Network</h3>
+      <p>Y Combinator has funded over 5,000 companies including Airbnb, Stripe, and Dropbox. The speakers at Founder Mode: ON are part of this global network — and they're from Turkey, just like you.</p>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="cta-banner">
+    <h2>Ready to think differently?</h2>
+    <p>Seats are limited. Applications are reviewed on a rolling basis.</p>
+    <a href="/apply.html" class="cta-banner-btn">Apply Now →</a>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">Founder Mode<span>: ON</span></div>
+    <p>Istanbul · © 2026 · An ExposureAI × fal.ai × e2vc Event</p>
+  </footer>
+
+</body>
+</html>
