@@ -42,30 +42,49 @@
       justify-content: space-between;
       padding: 0 48px;
       height: 64px;
-      background: rgba(255,255,255,0.92);
+      background: transparent;
+      transition: background 0.3s, border-color 0.3s;
+      border-bottom: 1px solid transparent;
+    }
+
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
+      border-bottom-color: var(--border);
     }
 
     .nav-logo {
       font-size: 15px;
       font-weight: 800;
-      color: var(--black);
+      color: #fff;
       letter-spacing: -0.3px;
+      transition: color 0.3s;
     }
+    nav.scrolled .nav-logo { color: var(--black); }
     .nav-logo span { color: var(--orange); }
 
     .nav-apply {
-      background: var(--orange);
+      background: rgba(255,255,255,0.12);
       color: #fff;
       text-decoration: none;
       font-size: 13px;
       font-weight: 600;
       padding: 8px 20px;
       border-radius: 6px;
-      transition: background 0.15s;
+      border: 1px solid rgba(255,255,255,0.2);
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      backdrop-filter: blur(8px);
     }
-    .nav-apply:hover { background: var(--orange-light); }
+    .nav-apply:hover {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+    nav.scrolled .nav-apply {
+      background: var(--orange);
+      color: #fff;
+      border-color: var(--orange);
+    }
+    nav.scrolled .nav-apply:hover { background: var(--orange-light); }
 
     /* HERO */
     .hero {
@@ -75,57 +94,109 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 24px 80px;
+      padding: 120px 24px 0;
       position: relative;
       overflow: hidden;
+      background: #080808;
+    }
+
+    /* dot grid */
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,0.055) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+    }
+
+    /* orange glow */
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 900px;
+      height: 700px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -58%);
+      background: radial-gradient(ellipse, rgba(255,102,0,0.20) 0%, rgba(255,102,0,0.06) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
     }
 
     .hero-yc-badge {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--orange-dim);
-      border: 1px solid rgba(255,102,0,0.2);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 100px;
-      padding: 6px 16px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--orange);
-      letter-spacing: 0.4px;
+      padding: 7px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.7);
+      letter-spacing: 1.2px;
       text-transform: uppercase;
-      margin-bottom: 32px;
+      margin-bottom: 40px;
+      backdrop-filter: blur(8px);
     }
 
     .hero-yc-badge img {
-      height: 16px;
+      height: 15px;
       width: auto;
+      filter: brightness(0) invert(1);
+      opacity: 0.8;
     }
 
-    .hero h1 {
-      font-size: clamp(52px, 9vw, 96px);
+    .hero-headline {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      margin-bottom: 32px;
+    }
+
+    .hero-line-1 {
+      font-size: clamp(72px, 12vw, 148px);
       font-weight: 900;
-      line-height: 1.0;
-      letter-spacing: -2px;
-      color: var(--black);
-      max-width: 900px;
-      margin-bottom: 24px;
+      line-height: 0.95;
+      letter-spacing: -4px;
+      color: transparent;
+      -webkit-text-stroke: 1.5px rgba(255,255,255,0.55);
+      text-transform: uppercase;
+      user-select: none;
     }
 
-    .hero h1 span { color: var(--orange); }
+    .hero-line-2 {
+      font-size: clamp(72px, 12vw, 148px);
+      font-weight: 900;
+      line-height: 0.95;
+      letter-spacing: -4px;
+      color: var(--orange);
+      text-transform: uppercase;
+      text-shadow: 0 0 80px rgba(255,102,0,0.5), 0 0 160px rgba(255,102,0,0.25);
+    }
 
     .hero p {
-      font-size: clamp(16px, 2vw, 20px);
-      color: var(--mid);
-      max-width: 560px;
-      line-height: 1.6;
-      margin-bottom: 48px;
+      font-size: clamp(15px, 1.8vw, 18px);
+      color: rgba(255,255,255,0.42);
+      max-width: 500px;
+      line-height: 1.65;
+      margin-bottom: 44px;
     }
 
     .hero-meta {
       display: flex;
       align-items: center;
-      gap: 32px;
-      margin-bottom: 40px;
+      gap: 12px;
+      margin-bottom: 44px;
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -133,10 +204,15 @@
     .hero-meta-item {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 14px;
-      color: var(--mid);
+      gap: 7px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.5);
       font-weight: 500;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 100px;
+      padding: 7px 16px;
+      backdrop-filter: blur(8px);
     }
 
     .hero-meta-item svg {
@@ -147,23 +223,101 @@
     .hero-cta {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      background: var(--orange);
-      color: #fff;
+      gap: 10px;
+      background: #fff;
+      color: var(--black);
       text-decoration: none;
-      font-size: 16px;
-      font-weight: 700;
-      padding: 16px 36px;
+      font-size: 15px;
+      font-weight: 800;
+      padding: 17px 40px;
       border-radius: 8px;
-      transition: background 0.15s, transform 0.15s;
-      letter-spacing: -0.2px;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+      letter-spacing: -0.3px;
     }
-    .hero-cta:hover { background: var(--orange-light); transform: translateY(-1px); }
+    .hero-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(255,102,0,0.35);
+      background: #f5f5f5;
+    }
+
+    .hero-cta-arrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      background: var(--orange);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 14px;
+      line-height: 1;
+      transition: transform 0.2s;
+    }
+    .hero-cta:hover .hero-cta-arrow { transform: translateX(2px); }
 
     .hero-sub {
-      margin-top: 16px;
-      font-size: 13px;
-      color: var(--light);
+      margin-top: 14px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.3px;
+    }
+
+    /* MARQUEE */
+    .hero-marquee {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      margin-top: 72px;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      padding: 18px 0;
+      overflow: hidden;
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 36px;
+      font-size: 12px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.3px;
+      white-space: nowrap;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--orange);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    .marquee-name { color: rgba(255,255,255,0.65); font-weight: 700; }
+
+    .marquee-tag {
+      font-size: 10px;
+      font-weight: 700;
+      background: var(--orange);
+      color: #fff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      letter-spacing: 0.2px;
     }
 
     /* ABOUT */
@@ -503,6 +657,8 @@
     @media (max-width: 768px) {
       nav { padding: 0 20px; }
 
+      .hero-line-1, .hero-line-2 { letter-spacing: -2px; }
+
       .about-grid { grid-template-columns: 1fr; gap: 40px; }
 
       .about-stats { grid-template-columns: 1fr 1fr; }
@@ -527,36 +683,66 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-yc-badge">
-      <img src="logos/yc copy.png" alt="Y Combinator" />
-      Backed by YC founders
-    </div>
-    <h1>Founder Mode<span>: ON</span></h1>
-    <p>An exclusive gathering for Turkey's sharpest young minds — to meet the founders who chose to build instead of conform.</p>
+    <div class="hero-content">
+      <div class="hero-yc-badge">
+        <img src="logos/yc copy.png" alt="Y Combinator" />
+        Powered by the YC Network
+      </div>
 
-    <div class="hero-meta">
-      <div class="hero-meta-item">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
-        TBD — Date Announced Soon
+      <div class="hero-headline">
+        <div class="hero-line-1">Founder Mode</div>
+        <div class="hero-line-2">: ON</div>
       </div>
-      <div class="hero-meta-item">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
-        </svg>
-        Istanbul, Turkey
+
+      <p>An exclusive gathering for Turkey's sharpest young minds — to meet the founders who chose to build instead of conform.</p>
+
+      <div class="hero-meta">
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+          </svg>
+          Date TBD
+        </div>
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
+          </svg>
+          Istanbul, Turkey
+        </div>
+        <div class="hero-meta-item">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+          Limited Seats · Application Only
+        </div>
       </div>
-      <div class="hero-meta-item">
-        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/>
-        </svg>
-        Limited Seats · Application Only
-      </div>
+
+      <a href="apply.html" class="hero-cta">
+        Apply for a Seat
+        <span class="hero-cta-arrow">→</span>
+      </a>
+      <p class="hero-sub">Applications reviewed on a rolling basis</p>
     </div>
 
-    <a href="/apply.html" class="hero-cta">Apply for a Seat →</a>
-    <p class="hero-sub">Applications reviewed on a rolling basis</p>
+    <!-- MARQUEE TICKER -->
+    <div class="hero-marquee">
+      <div class="marquee-track">
+        <!-- set 1 -->
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Öncel Özgül</span> · CEO · Patientdesk <span class="marquee-tag">YC W26</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Emre Kaplanaer</span> · CTO · Patientdesk <span class="marquee-tag">YC W26</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Kayra Bahadır</span> · CEO · Caretta <span class="marquee-tag">YC W26</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Tunga Bayrak</span> · Co-Founder · Freya <span class="marquee-tag">YC S25</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Enis Hulli</span> · General Partner · e2vc</div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Özge Öz</span> · Investor · QNBEYOND</div>
+        <!-- set 2 (duplicate for seamless loop) -->
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Öncel Özgül</span> · CEO · Patientdesk <span class="marquee-tag">YC W26</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Emre Kaplanaer</span> · CTO · Patientdesk <span class="marquee-tag">YC W26</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Kayra Bahadır</span> · CEO · Caretta <span class="marquee-tag">YC W26</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Tunga Bayrak</span> · Co-Founder · Freya <span class="marquee-tag">YC S25</span></div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Enis Hulli</span> · General Partner · e2vc</div>
+        <div class="marquee-item"><span class="marquee-dot"></span><span class="marquee-name">Özge Öz</span> · Investor · QNBEYOND</div>
+      </div>
+    </div>
   </section>
 
   <!-- ABOUT -->
@@ -719,5 +905,11 @@
     <p>Istanbul · © 2026 · An ExposureAI × fal.ai × e2vc Event</p>
   </footer>
 
+  <script>
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    });
+  </script>
 </body>
 </html>
