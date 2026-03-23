@@ -32,74 +32,6 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* NAV */
-    nav {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 48px;
-      height: 64px;
-      background: transparent;
-      transition: background 0.3s, border-color 0.3s;
-      border-bottom: 1px solid transparent;
-    }
-
-    nav.scrolled {
-      background: rgba(255,255,255,0.95);
-      backdrop-filter: blur(12px);
-      border-bottom-color: var(--border);
-    }
-
-    .nav-logo {
-      font-size: 14px;
-      font-weight: 900;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      color: transparent;
-      -webkit-text-stroke: 1px rgba(255,255,255,0.75);
-      transition: -webkit-text-stroke 0.3s;
-      user-select: none;
-    }
-    nav.scrolled .nav-logo {
-      -webkit-text-stroke: 1px rgba(15,15,15,0.8);
-    }
-    .nav-logo span {
-      color: var(--orange);
-      -webkit-text-stroke: 0;
-    }
-
-    .nav-apply {
-      background: transparent;
-      color: rgba(255,255,255,0.85);
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.4px;
-      padding: 8px 22px;
-      border-radius: 100px;
-      border: 1px solid rgba(255,255,255,0.18);
-      transition: border-color 0.3s, box-shadow 0.3s, color 0.3s;
-    }
-    .nav-apply:hover {
-      border-color: rgba(255, 102, 0, 0.7);
-      box-shadow: 0 0 16px rgba(255, 102, 0, 0.25);
-      color: #fff;
-    }
-    nav.scrolled .nav-apply {
-      border-color: rgba(255, 102, 0, 0.6);
-      color: var(--orange);
-      box-shadow: none;
-    }
-    nav.scrolled .nav-apply:hover {
-      background: var(--orange);
-      border-color: var(--orange);
-      color: #fff;
-      box-shadow: 0 0 18px rgba(255, 102, 0, 0.3);
-    }
-
     /* HERO */
     .hero {
       height: 100svh;
@@ -109,7 +41,7 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 120px 24px 24px;
+      padding: 48px 24px 24px;
       position: relative;
       overflow: hidden;
       background: #080808;
@@ -703,12 +635,6 @@
 </head>
 <body>
 
-  <!-- NAV -->
-  <nav>
-    <div class="nav-logo">Founder Mode<span>: ON</span></div>
-    <a href="/apply.html" class="nav-apply">Apply Now →</a>
-  </nav>
-
   <!-- HERO -->
   <section class="hero">
     <div class="hero-content">
@@ -780,9 +706,8 @@
     <div class="about-grid">
       <div class="about-text">
         <h2 class="section-title">There's another path.<br/>This is it.</h2>
-        <p>Every year, Turkey's top university graduates flood into consulting, investment banking, and big tech. The path is comfortable, predictable — and often unfulfilling.</p>
-        <p>Founder Mode: ON exists to show that there's a different way. We're bringing YC-backed Turkish founders under 25 face to face with the sharpest students in the country — so they can see what's possible when you choose to build.</p>
-        <p>Attendance is earned, not given. Members are selected based on mindset, ambition, and the hunger to create something of their own.</p>
+        <p>Everyone you know is going into consulting or banking. Cool. This isn't for them.</p>
+        <p>We put YC-backed founders under 25 in a room with students who'd rather build than follow. No panels, no networking cringe — just real conversations with people who actually did it.</p>
       </div>
       <div class="about-stats">
         <div class="stat-card">
@@ -792,14 +717,6 @@
         <div class="stat-card">
           <div class="stat-number">YC</div>
           <div class="stat-label">Backed by Y Combinator — the world's top startup accelerator</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">TR</div>
-          <div class="stat-label">Turkish founders building globally competitive companies</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-number">1×</div>
-          <div class="stat-label">Exclusive, curated cohort. Not a conference</div>
         </div>
       </div>
     </div>
@@ -929,15 +846,9 @@
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">Founder Mode<span>: ON</span></div>
+    <div class="footer-logo">FM<span>:ON</span></div>
     <p>Istanbul · © 2026 · An ExposureAI × fal.ai × e2vc Event</p>
   </footer>
 
-  <script>
-    const nav = document.querySelector('nav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 60);
-    });
-  </script>
 </body>
 </html>
