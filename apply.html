@@ -473,12 +473,108 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* RESPONSIVE */
+    /* RESPONSIVE — mobile only, desktop untouched */
     @media (max-width: 600px) {
-      .page { padding: 48px 16px 60px; }
-      .form-row { grid-template-columns: 1fr; }
-      .q-card { padding: 20px; }
-      button[type="submit"] { width: 100%; }
+      /* Page shell */
+      .page {
+        padding: 32px 16px 80px;
+      }
+
+      /* Header */
+      .form-header {
+        margin-bottom: 36px;
+      }
+
+      .form-header .logo {
+        font-size: 12px;
+        margin-bottom: 20px;
+      }
+
+      .form-header h1 {
+        font-size: 28px;
+        letter-spacing: -1px;
+      }
+
+      .form-header p {
+        font-size: 14px;
+      }
+
+      /* Sticky progress bar — tighter, icon-only back button */
+      .progress-wrap {
+        margin: 0 -16px;
+        padding: 10px 16px;
+        gap: 12px;
+      }
+
+      .back-home-btn {
+        font-size: 0;          /* hide "Home" text */
+        padding: 7px 10px;
+        gap: 0;
+      }
+
+      .back-home-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* Form layout */
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      /* Inputs — bigger tap targets */
+      input, select, textarea {
+        font-size: 16px;       /* prevents iOS auto-zoom */
+        padding: 14px 14px;
+        border-radius: 10px;
+      }
+
+      textarea {
+        min-height: 110px;
+      }
+
+      /* Section labels */
+      .section {
+        padding-top: 24px;
+        margin-top: 12px;
+      }
+
+      .section-title {
+        font-size: 18px;
+      }
+
+      /* Question cards */
+      .q-card {
+        padding: 18px 16px;
+        gap: 10px;
+        border-radius: 12px;
+      }
+
+      .q-card label {
+        font-size: 13px;
+      }
+
+      /* Submit */
+      .submit-section {
+        margin-top: 20px;
+        gap: 14px;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        font-size: 15px;
+        padding: 16px 24px;
+        border-radius: 10px;
+      }
+
+      .submit-note {
+        font-size: 11px;
+      }
+
+      /* Success screen */
+      .success-message {
+        padding: 60px 20px;
+      }
     }
   </style>
 </head>
