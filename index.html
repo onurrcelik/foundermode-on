@@ -143,10 +143,10 @@
     }
 
     .hero-line-2 {
-      font-size: clamp(72px, 12vw, 148px);
+      font-size: clamp(52px, 9vw, 108px);
       font-weight: 900;
       line-height: 0.95;
-      letter-spacing: -4px;
+      letter-spacing: -3px;
       color: var(--orange);
       text-transform: uppercase;
       text-shadow: 0 0 80px rgba(255,102,0,0.5), 0 0 160px rgba(255,102,0,0.25);
@@ -494,11 +494,25 @@
       flex-direction: column;
       align-items: center;
       gap: 10px;
+      text-decoration: none;
     }
 
     .logo-item img {
-      height: 36px;
+      display: block;
+    }
+
+    .logo-img-wrap {
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .logo-item img {
+      height: 40px;
       width: auto;
+      max-width: 160px;
+      object-fit: contain;
       filter: brightness(0) invert(1);
       opacity: 0.75;
       transition: opacity 0.2s;
@@ -631,9 +645,53 @@
 
       .logo-divider-line { display: none; }
     }
+
+    /* STICKY APPLY BUTTON */
+    .sticky-apply {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      z-index: 1000;
+      opacity: 0;
+      transform: translateY(-10px);
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.3s;
+    }
+
+    .sticky-apply.visible {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .sticky-apply a {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--orange);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 10px 24px;
+      border-radius: 100px;
+      box-shadow: 0 4px 20px rgba(255, 102, 0, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    }
+
+    .sticky-apply a:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 28px rgba(255, 102, 0, 0.5);
+      background: var(--orange-light);
+    }
   </style>
 </head>
 <body>
+
+  <!-- STICKY APPLY BUTTON -->
+  <div class="sticky-apply" id="stickyApply">
+    <a href="apply.html">Apply Now →</a>
+  </div>
 
   <!-- HERO -->
   <section class="hero">
@@ -645,7 +703,7 @@
 
       <div class="hero-headline">
         <div class="hero-line-1">Founder Mode</div>
-        <div class="hero-line-2">: ON</div>
+        <div class="hero-line-2">Unlocked</div>
       </div>
 
       <p>Meet with Turkish founders under 25,<br/>that are backed by Y Combinator.</p>
@@ -702,12 +760,13 @@
   <!-- ABOUT -->
   <hr class="divider" />
   <section class="section">
-    <div class="section-label">What is this</div>
+    <div class="section-label">The Event</div>
     <div class="about-grid">
       <div class="about-text">
-        <h2 class="section-title">There's another path.<br/>This is it.</h2>
+        <h2 class="section-title">There's another path.</h2>
         <p>Everyone you know is going into consulting or banking. Cool. This isn't for them.</p>
-        <p>We put YC-backed founders under 25 in a room with students who'd rather build than follow. No panels, no networking cringe — just real conversations with people who actually did it.</p>
+        <p>Meet with YC-backed founders under 25 who chose to build their own instead of following the crowd.</p>
+        <p><strong>Meet, listen, ask, get inspired, and build your own path!</strong></p>
       </div>
       <div class="about-stats">
         <div class="stat-card">
@@ -716,7 +775,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-number">YC</div>
-          <div class="stat-label">Backed by Y Combinator — the world's top startup accelerator</div>
+          <div class="stat-label">Y Combinator backed our speakers</div>
         </div>
       </div>
     </div>
@@ -810,20 +869,25 @@
       <h2 class="section-title">The People Behind It</h2>
       <p class="organizers-subtitle">Brought to you by Turkey's leading voices in tech, venture, and AI.</p>
       <div class="logo-row">
-        <div class="logo-item">
-          <img src="logos/exposure-new copy.svg" alt="ExposureAI" />
+        <a href="https://exposureai.org" target="_blank" rel="noopener" class="logo-item">
+          <div class="logo-img-wrap"><img src="logos/exposure-new copy.svg" alt="ExposureAI" /></div>
           <span class="logo-item-label">ExposureAI</span>
-        </div>
+        </a>
         <div class="logo-divider-line"></div>
-        <div class="logo-item">
-          <img src="logos/fal copy.png" alt="fal.ai" />
+        <a href="https://fal.ai" target="_blank" rel="noopener" class="logo-item">
+          <div class="logo-img-wrap"><img src="logos/fal copy.png" alt="fal.ai" style="height: 56px;" /></div>
           <span class="logo-item-label">fal.ai</span>
-        </div>
+        </a>
         <div class="logo-divider-line"></div>
-        <div class="logo-item">
-          <img src="logos/e2vc copy.svg" alt="e2vc" />
+        <a href="https://e2.vc" target="_blank" rel="noopener" class="logo-item">
+          <div class="logo-img-wrap"><img src="logos/e2vc copy.svg" alt="e2vc" /></div>
           <span class="logo-item-label">e2vc</span>
-        </div>
+        </a>
+        <div class="logo-divider-line"></div>
+        <a href="https://www.innovis.vc/" target="_blank" rel="noopener" class="logo-item">
+          <div class="logo-img-wrap"><img src="logos/innovis.webp" alt="Innovis" /></div>
+          <span class="logo-item-label">Innovis</span>
+        </a>
       </div>
     </div>
   </section>
@@ -832,8 +896,9 @@
   <section class="yc-section">
     <div class="yc-section-inner">
       <img src="logos/yc copy.png" alt="Y Combinator" class="yc-logo-large" />
-      <h3>Powered by the YC Network</h3>
-      <p>Y Combinator has funded over 5,000 companies including Airbnb, Stripe, and Dropbox. The speakers at Founder Mode: ON are part of this global network — and they're from Turkey, just like you.</p>
+      <h3> All the way from Silicon Valley</h3>
+      <p>Y Combinator has funded over 5,000 companies including Airbnb, Stripe, etc.</p>
+      <p>Our YC-backed guests are from Turkey, younger than 25. Just like you..1.</p>
     </div>
   </section>
 
@@ -844,11 +909,17 @@
     <a href="/apply.html" class="cta-banner-btn">Apply Now →</a>
   </section>
 
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-logo">FM<span>:ON</span></div>
-    <p>Istanbul · © 2026 · An ExposureAI × fal.ai × e2vc Event</p>
-  </footer>
 
+  <script>
+    const sticky = document.getElementById('stickyApply');
+    const hero = document.querySelector('.hero');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > hero.offsetHeight * 0.7) {
+        sticky.classList.add('visible');
+      } else {
+        sticky.classList.remove('visible');
+      }
+    });
+  </script>
 </body>
 </html>
