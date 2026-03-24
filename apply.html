@@ -96,6 +96,22 @@
       margin: 0 auto;
     }
 
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 24px;
+      transition: color 0.2s;
+    }
+
+    .back-link:hover {
+      color: var(--orange);
+    }
+
     /* Progress indicator — sticky */
     .progress-wrap {
       position: sticky;
@@ -445,6 +461,7 @@
 
   <div class="page">
     <div class="form-header">
+      <a href="index.html" class="back-link">← Back to home</a>
       <div class="logo">Founder Mode<span>: UNLOCKED</span></div>
       <h1>Apply to join</h1>
       <p>Takes about 5 minutes. Be honest, we value genuine answers over AI-written ones!</p>
@@ -550,7 +567,7 @@
       </div>
 
       <div class="form-group">
-        <label for="heard">How did you hear about Founder Mode: ON? <span class="req">*</span></label>
+        <label for="heard">How did you hear about Founder Mode:Unlocked? <span class="req">*</span></label>
         <select id="heard" name="heard" required>
           <option value="" disabled selected>Select one</option>
           <option value="friend">A friend or classmate</option>
@@ -561,6 +578,11 @@
           <option value="club">A university club</option>
           <option value="other">Other</option>
         </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exposureMember">Do you know any Exposure member? <span class="opt">(optional)</span></label>
+        <input type="text" id="exposureMember" name="exposureMember"  />
       </div>
 
       <div class="submit-section">
@@ -578,7 +600,7 @@
         </svg>
       </div>
       <h3>Application received!</h3>
-      <p>Thanks for applying to Founder Mode: ON.<br/>We'll review your application and reach out via email soon.</p>
+      <p>Thanks for applying to Founder Mode: Unlocked.<br/>We'll review your application and reach out soon.</p>
     </div>
 
   </div>
